@@ -1,15 +1,8 @@
-import string
+def copy_content(file1, file2):
+    try:
+        with open(file1, 'r') as source, open(file2, 'w') as destination:
+            destination.write(source.read())
+    except FileNotFoundError:
+        print("File not found.")
 
-str = "Ancient Apparatus"
-
-u = 0
-l = 0
-
-for chr in str:
-    if chr >= 'A' and chr <= 'Z':
-        u = u + 1
-    elif chr >= 'a' and chr <= 'z':
-        l = l + 1
-
-print(u)
-print(l)
+copy_content("a.txt", "B.txt")

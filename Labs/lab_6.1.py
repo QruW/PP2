@@ -1,9 +1,20 @@
-import os 
+import os
 
-path = r'C:\Users\aibar\OneDrive\Рабочий Стол\Вообщем и в целом'
+path = os.getcwd()
+print(path)
+print("-------------")
 
-# using relative path
-print(os.access(path, os.F_OK)) # check for existence
-print(os.access(path, os.R_OK)) # check for readibility
-print(os.access(path, os.W_OK)) # check for writability
-print(os.access(path, os.X_OK)) # check for executability
+contents = os.listdir(path)
+
+for element in contents:
+    print(element)
+    print(path)
+
+print("-------------")
+
+path2 = r'C:\Users\aibar\OneDrive\Рабочий стол\Вообщем и в целом'
+
+contents1 = os.listdir(path2)
+
+for element1 in contents1:
+    print(element1)

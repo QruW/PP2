@@ -1,10 +1,6 @@
-def our_range(start, stop):
-    result = []
-    a = 1
-    while start < stop:
-        result.append(a)
-        start += 1
-        a *= a
-    return result
+def square_generator(n):
+    for i in range(n + 1):
+        yield i ** 2
 
-print(our_range(1, 10))
+n = int(input())
+print(list(square_generator(n)))

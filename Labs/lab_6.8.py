@@ -1,10 +1,12 @@
-import string
+import os
 
-str = "AppA"
+file = "a.txt"
 
-str1 = ''.join(reversed(str))
-
-if str == str1:
-    print("It is a polindrome")
+if os.path.exists(file):
+    if os.access(file, os.W_OK):
+        os.remove(file)
+        print("Deleted successfully.")
+    else:
+        print("No permission to delete.")
 else:
-    print("It is not a polindrome")
+    print("File does not exist.")

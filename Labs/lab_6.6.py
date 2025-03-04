@@ -1,8 +1,9 @@
-lst = [1, 2, 3]
+import string
 
-a = 0
+def create_text_files():
+    for letter in string.ascii_uppercase:
+        filename = f"{letter}.txt"
+        with open(filename, 'w') as file:
+            file.write(f"This is file {filename}\n")
 
-for num in lst:
-    a = num * num
-    print(a)
-print(a)
+create_text_files()

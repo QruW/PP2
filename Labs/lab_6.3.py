@@ -1,18 +1,13 @@
-file_name = 'info.txt' # relative path - the file should exist
-# at the current working directory
-# check os.getcwd() and os.listdir(path)
-a = 0
+import os
 
-with open(file_name, 'r') as file: 
-    for line in file:
-        print(file.readline())
-        if file.readline():
-            a = a + 1
+path = r'C:\Users\aibar\OneDrive\Рабочий стол\Вообщем и в целом\VSCode\Новая папка'
 
-with open(file_name, 'r') as file: 
-    for element in file:
-        print(file.readline())
-        if file.readline():
-            a = a + 1
+if os.access(path, os.F_OK):
+    contents = os.listdir(path)
+    path_1 = './'
+    for element in contents:
+        print(element)
+        print(path_1)
+else:
+    print("This path is not exist")
     
-print(a)

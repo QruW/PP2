@@ -3,8 +3,6 @@ import os
 
 # Initialize Pygame
 pygame.init()
-pygame.mixer.init()
-
 # Music folder
 MUSIC_FOLDER = "music/"
 playlist = [f for f in os.listdir(MUSIC_FOLDER) if f.endswith(".mp3")] # all files in the folder with .mp3 extension
@@ -19,9 +17,6 @@ def play_pause():
         pygame.mixer.music.pause()
     else:
         pygame.mixer.music.unpause()
-# Stop music via 's' key
-def stop():
-    pygame.mixer.music.stop()
 # Next track via right arrow key
 def next_track():
     global current_track
@@ -47,8 +42,6 @@ while running:
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
                 play_pause()
-            elif event.key == pygame.K_s:
-                stop()
             elif event.key == pygame.K_RIGHT:
                 next_track()
             elif event.key == pygame.K_LEFT:

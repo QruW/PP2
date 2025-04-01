@@ -3,21 +3,21 @@ from color_palette import *
 import random
 
 pygame.init()
-
+# Set up the screen dimensions and cell size
 WIDTH = 600
 HEIGHT = 600
 CELL = 30
-
+# Set up the colors
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 font = pygame.font.SysFont("Verdana", 20)
-
+# Define the grid
 def draw_grid():
     for i in range(HEIGHT // CELL):
         for j in range(WIDTH // CELL):
             pygame.draw.rect(screen, colorGRAY, (i * CELL, j * CELL, CELL, CELL), 1)
-
+# Define the classes for the points, snake and food
 class Point:
-    def __init__(self, x, y):
+    def __init__(self, x, y): 
         self.x = x
         self.y = y
 
@@ -27,19 +27,19 @@ class Snake:
         self.dx = 1
         self.dy = 0
 
-    def move(self):
-        for i in range(len(self.body) - 1, 0, -1):
+    def move(self): 
+        for i in range(len(self.body) - 1, 0, -1): 
             self.body[i].x = self.body[i - 1].x
             self.body[i].y = self.body[i - 1].y
 
-        self.body[0].x += self.dx
-        self.body[0].y += self.dy
+        self.body[0].x += self.dx # Move the head of the snake
+        self.body[0].y += self.dy # Move the body of the snake
 
-        if self.body[0].x < 0 or self.body[0].x >= WIDTH // CELL or self.body[0].y < 0 or self.body[0].y >= HEIGHT // CELL:
+        if self.body[0].x < 0 or self.body[0].x >= WIDTH // CELL or self.body[0].y < 0 or self.body[0].y >= HEIGHT // CELL: # Check for wall collisions
             return False
 
         for segment in self.body[1:]:
-            if self.body[0].x == segment.x and self.body[0].y == segment.y:
+            if self.body[0].x == segment.x and self.body[0].y == segment.y: ## Check for self-collisions
                 return False
         
         return True
@@ -71,14 +71,14 @@ class Food:
             self.pos.y = random.randint(0, HEIGHT // CELL - 1)
             if not any(segment.x == self.pos.x and segment.y == self.pos.y for segment in snake_body):
                 break
-
+# Initialize the game
 FPS = 5
 score = 0
 level = 1
 clock = pygame.time.Clock()
 food = Food()
 snake = Snake()
-
+# Set up the moving functionality
 running = True
 while running:
     for event in pygame.event.get():
@@ -100,24 +100,26 @@ while running:
 
     screen.fill(colorBLACK)
     draw_grid()
-
+# If the snake moves out of bounds or collides with itself, the game ends
+    # Check for collisions with walls or itself
     if not snake.move():
         running = False
-
+# Check for collisions with food
+    # If the snake eats the food, increase the score and generate a new food
     if snake.check_collision(food):
         score += 1
-        if score % 3 == 0:
-            level += 1
-            FPS += 2
+        if score % 3 == 0: # Increase level every 3 points
+            level += 1 
+            FPS += 2 # Increase speed with each level
     
     snake.draw()
     food.draw()
-
+# Display the score and level
     score_text = font.render(f"Score: {score}", True, colorYELLOW)
     level_text = font.render(f"Level: {level}", True, colorYELLOW)
     screen.blit(score_text, (10, 10))
     screen.blit(level_text, (10, 40))
-    
+    # Update the display
     pygame.display.flip()
     clock.tick(FPS)
 
